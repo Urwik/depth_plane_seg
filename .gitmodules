@@ -1,0 +1,3 @@
+[submodule "include/depth_plane_seg/segmentation/peac"]
+	path = include/depth_plane_seg/segmentation/peac
+	url = https://github.com/Urwik/peac.git

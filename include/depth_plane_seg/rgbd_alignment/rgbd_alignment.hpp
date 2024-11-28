@@ -186,7 +186,7 @@ void RGBDAlignment::setParams(const fs::path& params_file) {
 
     if(params_file == "" || !fs::exists(params_file)) {
         std::cerr << "No params file provided or not exists, loading default params file" << std::endl;
-        const YAML::Node config = YAML::LoadFile("/home/fran/workspaces/isec/jazzy_ws/src/rgbd_plane_mapping/include/rgbd_alignment/params.yaml");    
+        const YAML::Node config = YAML::LoadFile("/home/mauro/amr_ws/src/depth_plane_seg/include/rgbd_alignment/params.yaml");    
         this->setParams(config);
     }
     else {

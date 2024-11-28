@@ -11,7 +11,7 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
 find_package(pcl_ros REQUIRED)
-find_package(custom_msgs REQUIRED)
+find_package(custom_ros2_msgs REQUIRED)
 
 find_package(OpenCV REQUIRED)
 find_package(yaml-cpp REQUIRED)
@@ -26,11 +26,11 @@ include_directories(
 
 
 add_executable(depth_plane_seg_node src/depth_plane_seg_node.cpp)
-ament_target_dependencies(depth_plane_seg_node rclcpp sensor_msgs pcl_conversions pcl_ros custom_msgs)
+ament_target_dependencies(depth_plane_seg_node rclcpp sensor_msgs pcl_conversions pcl_ros custom_ros2_msgs)
 target_link_libraries(depth_plane_seg_node ${OpenCV_LIBS} ${YAML_CPP_LIBRARIES} ${PCL_LIBRARIES})
 
 add_executable(depth_plane_seg_node_debug src/depth_plane_seg_node_debug.cpp)
-ament_target_dependencies(depth_plane_seg_node_debug rclcpp sensor_msgs pcl_conversions pcl_ros custom_msgs)
+ament_target_dependencies(depth_plane_seg_node_debug rclcpp sensor_msgs pcl_conversions pcl_ros custom_ros2_msgs)
 target_link_libraries(depth_plane_seg_node_debug ${OpenCV_LIBS} ${YAML_CPP_LIBRARIES} ${PCL_LIBRARIES})
 
 install(TARGETS

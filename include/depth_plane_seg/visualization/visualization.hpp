@@ -131,7 +131,7 @@ namespace utils {
     void fullDisplay(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr &cloud, const std::vector<pcl::PointIndices>& clusters, const std::vector<Plane> &planos, const std::vector<Plane> &map_planes = {}) {
         
         pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer("Full Display"));
-        viewer->loadCameraParameters("/home/fran/workspaces/isec/jazzy_ws/src/rgbd_plane_mapping/examples/pcd/cam_params.cam");
+        viewer->loadCameraParameters("/home/mauro/amr_ws/src/depth_plane_seg/config/cam_params.cam");
 
         // Create four viewports
         int tl(0), tr(1), bl(2), br(3);

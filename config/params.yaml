@@ -9,7 +9,7 @@ planes_seg_topic: "/segmentation/planes"
 
 # Debugging options
 #where to save output files
-outputDir: /home/fran/workspaces/isec/galactic_ws/src/depth_plane_seg/examples/output
+outputDir: /home/mauro/amr_ws/src/depth_plane_seg/output
 loop: 1
 debug: true
 showWindow: false

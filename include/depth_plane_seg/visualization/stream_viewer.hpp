@@ -26,7 +26,7 @@ class StreamViewer {
 
 StreamViewer::StreamViewer() {
     this->viewer.reset(new pcl::visualization::PCLVisualizer("Stream Viewer"));
-    this->viewer->loadCameraParameters("/home/fran/workspaces/isec/jazzy_ws/src/rgbd_plane_mapping/examples/pcd/cam_params.cam");
+    this->viewer->loadCameraParameters("/home/mauro/amr_ws/src/depth_plane_seg/config/cam_params.cam");
     
     this->viewer->setBackgroundColor(0, 0, 0);
 

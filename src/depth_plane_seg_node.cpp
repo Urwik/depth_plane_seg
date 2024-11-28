@@ -14,7 +14,7 @@
 
 
 #include "preprocessing/preprocessing.hpp"
-#include "custom_msgs/msg/polygon_array.hpp"    
+#include "custom_ros2_msgs/msg/polygon_array.hpp"    
 
 // #include "segmentation/base_segmenter.hpp"
 // #include "segmentation/ransac_plane_segmenter.hpp" 
@@ -40,10 +40,10 @@ class DepthPlaneSegNode : public rclcpp::Node {
     DepthPlaneSegNode() : Node("depth_plane_seg_node") {
         
         this->segmenter = PeacSegmenter();
-        this->segmenter.setParams("/home/fran/workspaces/isec/galactic_ws/src/depth_plane_seg/config/params.yaml");
+        this->segmenter.setParams("/home/mauro/amr_ws/src/depth_plane_seg/config/params.yaml");
         this->segmenter.loadParams();
 
-        this->params = YAML::LoadFile("/home/fran/workspaces/isec/galactic_ws/src/depth_plane_seg/config/params.yaml");
+        this->params = YAML::LoadFile("/home/mauro/amr_ws/src/depth_plane_seg/config/params.yaml");
 
         std::string camera_info_topic = this->params["camera_info_topic"].as<std::string>();
         std::string depth_image_topic = this->params["depth_image_topic"].as<std::string>();
@@ -53,7 +53,7 @@ class DepthPlaneSegNode : public rclcpp::Node {
         
         this->subscriber = this->create_subscription<sensor_msgs::msg::Image>(depth_image_topic, 1, std::bind(&DepthPlaneSegNode::depth_callback, this, std::placeholders::_1));
         
-        this->publisher = this->create_publisher<custom_msgs::msg::PolygonArray>(planes_segmentation_topic, 10);
+        this->publisher = this->create_publisher<custom_ros2_msgs::msg::PolygonArray>(planes_segmentation_topic, 10);
 
         this->process_thread = std::thread(&DepthPlaneSegNode::process, this);
     }
@@ -182,13 +182,13 @@ class DepthPlaneSegNode : public rclcpp::Node {
     /**
      * @brief Publishes the polygon array message
      * @return void
-     * @note This function is called after the segmentation is done, and publish custom_msgs::msg::PolygonArray message
+     * @note This function is called after the segmentation is done, and publish custom_ros2_msgs::msg::PolygonArray message
      */
     void publishPolygonArray() {
         
         std::vector<Plane> planes = this->segmenter.getPlanes();
 
-        custom_msgs::msg::PolygonArray polygon_array;
+        custom_ros2_msgs::msg::PolygonArray polygon_array;
         for (const Plane &plane : planes) {
             geometry_msgs::msg::Polygon polygon;
             for (const Eigen::Vector3f &edge : plane.edges) {
@@ -293,11 +293,11 @@ class DepthPlaneSegNode : public rclcpp::Node {
     PeacSegmenter segmenter;
     sensor_msgs::msg::CameraInfo depth_intrinsics;
     sensor_msgs::msg::Image::SharedPtr depth_image;
-    custom_msgs::msg::PolygonArray polygon_array;
+    custom_ros2_msgs::msg::PolygonArray polygon_array;
     std::queue<sensor_msgs::msg::Image::SharedPtr> depth_image_queue;
     rclcpp::Subscription<sensor_msgs::msg::CameraInfo>::SharedPtr camera_info_subscriber;
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscriber;
-    rclcpp::Publisher<custom_msgs::msg::PolygonArray>::SharedPtr publisher;
+    rclcpp::Publisher<custom_ros2_msgs::msg::PolygonArray>::SharedPtr publisher;
     std::thread process_thread;
     std::mutex queue_mutex;
     std::condition_variable queue_cv;

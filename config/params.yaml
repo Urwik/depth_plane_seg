@@ -1,3 +1,4 @@
+# Target topic names
 camera_info_topic: "/camera/depth/camera_info"
 depth_image_topic: "/camera/depth/image_rect_raw"
 planes_seg_topic: "/segmentation/planes"

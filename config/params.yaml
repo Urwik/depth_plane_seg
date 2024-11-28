@@ -2,11 +2,6 @@ camera_info_topic: "/camera/depth/camera_info"
 depth_image_topic: "/camera/depth/image_rect_raw"
 planes_seg_topic: "/segmentation/planes"
 
-
-# ini file for TLS data
-#a list of input .pcd files, one file path per line (path should be relative to the director containing ths list file)
-# list: ..\..\data\andreashaus\list.txt
-
 # Debugging options
 #where to save output files
 outputDir: /home/mauro/amr_ws/src/depth_plane_seg/output

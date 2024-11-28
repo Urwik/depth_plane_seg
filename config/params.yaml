@@ -1,0 +1,67 @@
+camera_info_topic: "/camera/depth/camera_info"
+depth_image_topic: "/camera/depth/image_rect_raw"
+planes_seg_topic: "/segmentation/planes"
+
+
+# ini file for TLS data
+#a list of input .pcd files, one file path per line (path should be relative to the director containing ths list file)
+# list: ..\..\data\andreashaus\list.txt
+
+# Debugging options
+#where to save output files
+outputDir: /home/fran/workspaces/isec/galactic_ws/src/depth_plane_seg/examples/output
+loop: 1
+debug: true
+showWindow: false
+saveSegImage: false
+saveSegCloud: false
+
+# scale unit from cm to mm (adjust according to the unit of your .pcd file)
+unitScaleFactor: 1000
+
+
+# Window Node validity (min % of non nan points in the window)
+nanTh: 0.15
+
+#T_mse
+# std tolerance for merging, unit: mm
+stdTol_merge: 8
+# std tolerance for init, unit: mm
+stdTol_init: 5
+# \sigma in the paper, unit: mm^-1
+depthSigma: 1.6e-6
+
+#T_ang
+# unit: mm, closest/farthest z to be considered
+z_near: 100
+z_far: 2000
+# unit: degree, corresponding normal deviation angle threshold
+angleDegree_near: 15
+angleDegree_far: 90
+# max deviation angle for merge, unit: degree
+similarityDegreeTh_merge: 60
+similarityDegreeTh_refine: 30
+
+#T_dz
+# corresponds to the 2*\alpha in the paper
+# Noise level of depth data; unit: mm
+depthAlpha: 0.02
+# Fixed Minimum depth threshold; unit: mm
+depthChangeTol: 0.01
+
+#use 0 for Kinect and 1 for TLS data where nan points are more randomly distributed
+# use 1 for RealSense D435 (enum {0, 1})
+initType: 1 
+
+# min number of supporting point (int)
+# note: adjust this if image size < 640x480
+# minimo de puntos que ha de tener un plano para ser considerado valido
+minSupport: 3000
+
+# Size of each node window in pixels for the graph (int)
+# note: adjust this if image size < 640x480
+windowWidth: 30
+windowHeight: 30
+
+# perform refinement of details or not (bool)
+doRefine: false

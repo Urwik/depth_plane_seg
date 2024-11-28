@@ -38,7 +38,7 @@ class DepthPlaneSegNode : public rclcpp::Node {
     
     public:
     DepthPlaneSegNode() : Node("depth_plane_seg_node") {
-        
+
         this->segmenter = PeacSegmenter();
         this->segmenter.setParams("/home/mauro/amr_ws/src/depth_plane_seg/config/params.yaml");
         this->segmenter.loadParams();
@@ -184,7 +184,7 @@ class DepthPlaneSegNode : public rclcpp::Node {
      * @return void
      * @note This function is called after the segmentation is done, and publish custom_ros2_msgs::msg::PolygonArray message
      */
-    void publishPolygonArray() {
+    void publishPolygonArray(const std_msgs::msg::Header& header) {
         
         std::vector<Plane> planes = this->segmenter.getPlanes();
 
@@ -200,6 +200,7 @@ class DepthPlaneSegNode : public rclcpp::Node {
             }
             polygon_array.polygons.push_back(polygon);
         }
+        polygon_array.header = header;
         this->publisher->publish(polygon_array);
     }
 
@@ -261,7 +262,7 @@ class DepthPlaneSegNode : public rclcpp::Node {
             this->segmenter.setCloudId(ss.str());
             this->segmenter.setInputCloud(cloud_xyz);
             this->segmenter.segment();
-            this->publishPolygonArray();
+            this->publishPolygonArray(depth_image->header);
             
 #ifdef VISUALIZE // TODO
             // utils::visualizePlanes(planos);
